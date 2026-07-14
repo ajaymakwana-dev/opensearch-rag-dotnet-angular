@@ -24,8 +24,6 @@ opensearch-rag-dotnet-angular/
 └── frontend/                   # Angular SPA
 ```
 
-### Request flow (no MediatR)
-
 ```
 Angular → Controllers → Application services → Repository interfaces → OpenSearch / LLM
 ```
