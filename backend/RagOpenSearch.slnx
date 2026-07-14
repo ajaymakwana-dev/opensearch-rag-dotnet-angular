@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/RagOpenSearch.Api/RagOpenSearch.Api.csproj" />
+    <Project Path="src/RagOpenSearch.Application/RagOpenSearch.Application.csproj" />
+    <Project Path="src/RagOpenSearch.Domain/RagOpenSearch.Domain.csproj" />
+    <Project Path="src/RagOpenSearch.Infrastructure/RagOpenSearch.Infrastructure.csproj" />
+  </Folder>
+</Solution>

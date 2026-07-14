@@ -1,0 +1,16 @@
+NovaSearch Product FAQ (Sample)
+
+What is NovaSearch?
+NovaSearch is an enterprise knowledge assistant that indexes company documents and answers questions using Retrieval-Augmented Generation (RAG) with OpenSearch vector search.
+
+How does indexing work?
+Documents are split into overlapping text chunks, converted into embeddings, and stored in an OpenSearch k-NN index. At query time, the question is embedded and the nearest chunks are retrieved.
+
+Can I use OpenAI models?
+Yes. Set Llm:Provider to OpenAI and provide an API key. The sample also supports Mock embeddings and answers for local demos without cloud keys.
+
+What file types are supported in this sample?
+UTF-8 text files such as .txt, .md, and .csv can be uploaded through the Angular UI or the /api/documents/upload endpoint.
+
+How are answers grounded?
+The API retrieves the top-K semantic matches and asks the LLM to answer only from those sources. The UI shows citation cards for each retrieved chunk.

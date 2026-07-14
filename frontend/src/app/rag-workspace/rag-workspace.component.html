@@ -1,0 +1,73 @@
+<section class="workspace">
+  <header class="hero">
+    <p class="brand">NovaSearch</p>
+    <h1>Ask your documents</h1>
+    <p class="lede">
+      Upload text, index with OpenSearch k-NN, and get grounded answers with citations.
+    </p>
+  </header>
+
+  <div class="panels">
+    <aside class="panel ingest">
+      <h2>Corpus</h2>
+      <p class="hint">Index UTF-8 .txt / .md files from the sample-docs folder.</p>
+
+      <label class="file">
+        <span>Select file</span>
+        <input type="file" accept=".txt,.md,.csv,text/plain" (change)="onFileSelected($event)" />
+      </label>
+
+      <button type="button" class="primary" [disabled]="busy()" (click)="upload()">
+        Index document
+      </button>
+
+      <ul class="docs" *ngIf="documents().length; else emptyDocs">
+        <li *ngFor="let doc of documents()">
+          <div>
+            <strong>{{ doc.fileName }}</strong>
+            <span>{{ doc.chunkCount }} chunks · {{ doc.indexedAtUtc | date: 'short' }}</span>
+          </div>
+          <button type="button" class="ghost" [disabled]="busy()" (click)="remove(doc)">Remove</button>
+        </li>
+      </ul>
+      <ng-template #emptyDocs>
+        <p class="empty">No documents indexed yet.</p>
+      </ng-template>
+    </aside>
+
+    <section class="panel ask">
+      <h2>RAG Q&amp;A</h2>
+      <label class="question">
+        <span>Question</span>
+        <textarea
+          rows="4"
+          [(ngModel)]="question"
+          placeholder="How many PTO days do full-time employees receive?"
+        ></textarea>
+      </label>
+
+      <button type="button" class="primary" [disabled]="busy()" (click)="ask()">
+        Ask
+      </button>
+
+      <p class="status" *ngIf="status()">{{ status() }}</p>
+      <p class="error" *ngIf="error()">{{ error() }}</p>
+
+      <article class="answer" *ngIf="answer() as result">
+        <h3>Answer</h3>
+        <pre>{{ result.answer }}</pre>
+
+        <h3>Sources</h3>
+        <div class="sources">
+          <div class="source" *ngFor="let source of result.sources">
+            <header>
+              <span>{{ source.fileName }} #{{ source.chunkIndex }}</span>
+              <span class="score">score {{ source.score | number: '1.2-3' }}</span>
+            </header>
+            <p>{{ source.content }}</p>
+          </div>
+        </div>
+      </article>
+    </section>
+  </div>
+</section>
